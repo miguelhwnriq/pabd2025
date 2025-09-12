@@ -1,0 +1,18 @@
+#append adiciona um elemento na ultima posição da lista
+#numeros.append('11')
+
+#[0] - mostra os elementos da lista
+#print(numeros[2])
+
+#len mostra o tamamho da lista
+#print(f'tamanho: {len(numeros)}')
+
+#insert adiciona um elemento na posição desejada.
+#numeros.insert(1, '12')
+#print(numeros)
+
+
+#pop remove elementos indexados
+#numeros = numeros.pop(1)
+#print(f'Removido: {numeros}')
+#print(numeros)
