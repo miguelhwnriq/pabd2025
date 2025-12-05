@@ -77,13 +77,23 @@ class BaseDAO(ABC, Generic[T]):
             return None #retorna nada
 
   # Delete
-  def delete(self, record_id: int) -> bool: #deve retornar valores lógicos (True ou False)
-        #tratamento de erros
-        try: 
-            response = self._client.table(self._table_name).delete().eq('id', record_id).execute() #pedindo o que retorne o nome da tabela e delete o que tiver com aquele ID. 
-            return bool(response.data) #retorna verdadeiro se o registro for deletado
-        #caso de erro
-        except Exception as e:
-            print(f"Erro ao deletar registro: {e}") #mensagem de erro
-            return False #retorna falso
-  
+  def delete(self, record_id: int) -> bool:
+    try:
+        response = (
+            self._client
+            .table(self._table_name)
+            .delete()
+            .eq('id', record_id)
+            .select("*")
+            .execute()
+        )
+
+        if not response.data:
+            print(f"Nenhum registro com id={record_id} foi encontrado.")
+            return False
+
+        return True
+
+    except Exception as e:
+        print(f"Erro ao deletar registro: {e}")
+        return False
